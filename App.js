@@ -28,8 +28,9 @@ export default function App() {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     hello1(data);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     setBarcodeData(data);
+    
+    alert(`Bar code has been scanned!`);
   };
 
   const handleScanAgain = () => {
