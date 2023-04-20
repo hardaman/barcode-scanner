@@ -16,7 +16,7 @@ const firebaseConfig = {
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [barcodeData, setBarcodeData] = useState(null);
+  const [barcodeData, setBarcodeData] = useState("Initial Data");
 
   useEffect(() => {
     (async () => {
@@ -57,7 +57,7 @@ export default function App() {
     <View style={styles.container}>
       <View>
       <Text
-        style={{top: -60, fontSize: 24, fontWeight: '600'}}
+        style={{top: 25, fontSize: 24, fontWeight: '600'}}
         >Scan Your Data Here !</Text>
       </View>
       <View style={{marginBottom: -20,marginLeft:10, marginRight: 10, borderRadius: 20 ,padding: 10,paddingBottom: -10, height: 500,flexDirection:'column', justifyContent:'center', alignItems:'center', paddingTop: 40}}>
