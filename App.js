@@ -16,6 +16,7 @@ const firebaseConfig = {
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [barcodeData, setBarcodeData] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -28,6 +29,12 @@ export default function App() {
     setScanned(true);
     hello1(data);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    setBarcodeData(data);
+  };
+
+  const handleScanAgain = () => {
+    setScanned(false);
+    setBarcodeData(null);
   };
 
   if (hasPermission === null) {
@@ -48,11 +55,25 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <View>
+      <Text
+        style={{top: -60, fontSize: 24, fontWeight: '600'}}
+        >Scan Your Data Here !</Text>
+      </View>
+      <View style={{marginBottom: -20,marginLeft:10, marginRight: 10, borderRadius: 20 ,padding: 10,paddingBottom: -10, height: 500,flexDirection:'column', justifyContent:'center', alignItems:'center', paddingTop: 40}}>
+      <View style={styles.scanner}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+        style={{ height: 500, width: 500, }}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      </View>
+       {scanned && (
+        <View style={{flexDirection: "column", justifyContent:'flex-start'}}>
+          <Text style={styles.barcodeText}>Scanned Data: {barcodeData.replace(/[{}"]/g, '')}</Text>
+          <Button style={{padding: 2}} title="Scan Again" onPress={handleScanAgain} />
+          </View>
+      )}
+      </View>
     </View>
   );
 }
@@ -87,7 +108,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   barcodeText: {
-    color: 'white',
+    color: 'black',
     fontSize: 13,
     marginBottom: 10,
   },
